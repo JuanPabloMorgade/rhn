@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  :root {
+    /* Light Theme - HR Event Notifier */
+    --background: 60 56% 91%; /* Light Beige: #F5F5DC */
+    --foreground: 60 10% 20%; /* Darker contrast for beige */
+
+    --card: 60 50% 95%; /* Slightly lighter beige */
+    --card-foreground: 60 10% 20%;
+
+    --popover: 60 50% 95%;
+    --popover-foreground: 60 10% 20%;
+
+    --primary: 180 100% 25%; /* Teal: #008080 */
+    --primary-foreground: 180 100% 95%; /* Light contrast for Teal */
+
+    --secondary: 127 31% 85%; /* Lighter Soft Green */
+    --secondary-foreground: 127 30% 25%; /* Darker green contrast */
+
+    --muted: 60 30% 85%; /* Muted beige */
+    --muted-foreground: 60 10% 45%;
+
+    --accent: 127 31% 74%; /* Soft Green: #A7D1AB */
+    --accent-foreground: 127 30% 20%; /* Dark green contrast for accent */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 60 30% 80%; /* Border beige */
+    --input: 60 30% 80%; /* Input beige */
+    --ring: 180 100% 25%; /* Teal for focus ring */
+
+    --chart-1: 180 100% 25%; /* Teal */
+    --chart-2: 127 31% 74%; /* Soft Green */
+    --chart-3: 60 56% 80%; /* Darker Beige */
+    --chart-4: 127 31% 60%; /* Darker Soft Green */
+    --chart-5: 180 100% 40%; /* Lighter Teal */
+
+    --radius: 0.5rem;
+
+    /* Sidebar specific colors - can inherit or customize */
+    --sidebar-background: 60 50% 93%; /* Slightly darker beige for sidebar */
+    --sidebar-foreground: 60 10% 20%;
+    --sidebar-primary: 180 100% 25%; /* Teal */
+    --sidebar-primary-foreground: 180 100% 95%;
+    --sidebar-accent: 127 31% 74%; /* Soft Green */
+    --sidebar-accent-foreground: 127 30% 20%;
+    --sidebar-border: 60 30% 80%;
+    --sidebar-ring: 180 100% 25%;
+  }
+
+  .dark {
+    /* Dark Theme - Define if needed, using placeholders for now */
+    --background: 200 10% 10%;
+    --foreground: 60 5% 95%;
+
+    --card: 200 10% 12%;
+    --card-foreground: 60 5% 95%;
+
+    --popover: 200 10% 12%;
+    --popover-foreground: 60 5% 95%;
+
+    --primary: 180 100% 55%; /* Brighter Teal for dark mode */
+    --primary-foreground: 180 100% 10%;
+
+    --secondary: 127 31% 40%; /* Darker Soft Green */
+    --secondary-foreground: 127 30% 90%;
+
+    --muted: 200 10% 20%;
+    --muted-foreground: 60 5% 65%;
+
+    --accent: 127 31% 50%; /* Medium Soft Green */
+    --accent-foreground: 127 30% 95%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 200 10% 25%;
+    --input: 200 10% 25%;
+    --ring: 180 100% 55%;
+
+    --chart-1: 180 100% 55%;
+    --chart-2: 127 31% 50%;
+    --chart-3: 60 56% 40%;
+    --chart-4: 127 31% 60%;
+    --chart-5: 180 100% 70%;
+
+    --radius: 0.5rem;
+
+    /* Sidebar specific dark colors */
+    --sidebar-background: 200 10% 15%;
+    --sidebar-foreground: 60 5% 95%;
+    --sidebar-primary: 180 100% 55%;
+    --sidebar-primary-foreground: 180 100% 10%;
+    --sidebar-accent: 127 31% 50%;
+    --sidebar-accent-foreground: 127 30% 95%;
+    --sidebar-border: 200 10% 25%;
+    --sidebar-ring: 180 100% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans; /* Ensure font-sans uses the variable from html tag */
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--muted-foreground) / 0.5);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted-foreground) / 0.4) transparent;
+}

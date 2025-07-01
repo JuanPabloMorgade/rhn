@@ -1,0 +1,21 @@
+# Archivos y carpetas de desarrollo
+.next/cache
+.vscode
+.idea
+*.log
+*.md
+*.test.*
+__tests__/
+coverage/
+
+# Archivos del sistema o editor
+.DS_Store
+Thumbs.db
+
+# Bitbucket / Git / CI
+.git
+.gitignore
+.bitbucket
+bitbucket-pipelines.yml
+firebase-debug.log
+firebase-debug.*

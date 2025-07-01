@@ -1,0 +1,30 @@
+{
+	"firestore": {
+		"database": "(default)",
+		"location": "southamerica-east1",
+		"rules": "firestore.rules",
+		"indexes": "firestore.indexes.json"
+	},
+	"hosting": {
+		"rewrites": [
+			{
+				"source": "/api/**",
+				"run": {
+					"serviceId": "rrhh-notificaciones-client",
+					"region": "southamerica-east1"
+				}
+			},
+			{
+				"source": "**",
+				"run": {
+					"serviceId": "rrhh-notificaciones-client",
+					"region": "southamerica-east1"
+				}
+			}
+		]
+	},
+
+	"storage": {
+		"rules": "storage.rules"
+	}
+}
