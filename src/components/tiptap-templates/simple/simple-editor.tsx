@@ -5,7 +5,7 @@ import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
 
 // --- Tiptap Core Extensions ---
 import { StarterKit } from '@tiptap/starter-kit';
-import { Image } from '@tiptap/extension-image';
+import { ImageStyle } from "@/components/tiptap-extension/image-style";
 import { TaskItem } from '@tiptap/extension-task-item';
 import { TaskList } from '@tiptap/extension-task-list';
 import { TextAlign } from '@tiptap/extension-text-align';
@@ -78,6 +78,7 @@ import '@/components/tiptap-templates/simple/simple-editor.scss';
 import content from '@/components/tiptap-templates/simple/data/content.json';
 import PlaceholderDropdown from '@/components/custom/placeHolders';
 import HighlightDropdown from '@/components/custom/highlight-dropdown';
+import ImageStyleDropdown from '@/components/custom/image-style-dropdown';
 
 import TextStyle from '@tiptap/extension-text-style';
 import Color from '@tiptap/extension-color';
@@ -178,13 +179,11 @@ const MainToolbarContent = ({
       </ToolbarGroup>
 
       <ToolbarSeparator />
-
       <ToolbarGroup>
         <ImageUploadButton text="Agregar" />
+        <ImageStyleDropdown isOpen={activeDropdown === 'imageStyle'} onToggle={() => setActiveDropdown(activeDropdown === 'imageStyle' ? null : 'imageStyle')} />
       </ToolbarGroup>
-
       {isMobile && <ToolbarSeparator />}
-
       <Spacer />
     </>
   );
@@ -265,7 +264,7 @@ export function SimpleEditor({
       TaskList,
       TaskItem.configure({ nested: true }),
       Highlight.configure({ multicolor: true }),
-      Image,
+            ImageStyle,
       Typography,
       Superscript,
       Subscript,
