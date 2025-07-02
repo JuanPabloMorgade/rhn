@@ -64,6 +64,7 @@ export default function FontSizeDropdown({
                   .run();
                 onToggle();
               }}
+              type="button"
             >
               {size.label}
             </button>

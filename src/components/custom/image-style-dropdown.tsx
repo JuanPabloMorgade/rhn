@@ -61,6 +61,7 @@ export default function ImageStyleDropdown({ isOpen, onToggle }: ImageStyleDropd
                 editor.chain().focus().setImageWidth(size.value).run()
                 onToggle()
               }}
+              type="button"
             >
               {size.label}
             </button>
@@ -74,6 +75,7 @@ export default function ImageStyleDropdown({ isOpen, onToggle }: ImageStyleDropd
                 editor.chain().focus().setImageAlign(value as any).run()
                 onToggle()
               }}
+              type="button"
             >
               <Icon className="tiptap-button-icon" />
               {label}
