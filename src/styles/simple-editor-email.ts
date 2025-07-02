@@ -102,5 +102,15 @@ export const SIMPLE_EDITOR_EMAIL_CSS = `/* 1) Imports de TipTap */
   display: block;
   margin: 0.5em 0;
 }
+.simple-editor-content img[data-align="center"] {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.simple-editor-content img[data-align="right"] {
+  display: block;
+  margin-left: auto;
+}
+
 ` as const;
 
