@@ -5,6 +5,7 @@ import type { NodeViewProps } from "@tiptap/react"
 import { NodeViewWrapper } from "@tiptap/react"
 import { CloseIcon } from "@/components/tiptap-icons/close-icon"
 import "@/components/tiptap-node/image-upload-node/image-upload-node.scss"
+import ImageCropperDialog from "@/components/custom/image-cropper-dialog"
 
 export interface FileItem {
   id: string
@@ -334,6 +335,9 @@ export const ImageUploadNode: React.FC<NodeViewProps> = (props) => {
   const { accept, limit, maxSize } = props.node.attrs
   const inputRef = React.useRef<HTMLInputElement>(null)
   const extension = props.extension
+  const [cropSrc, setCropSrc] = React.useState<string | null>(null)
+  const [cropOpen, setCropOpen] = React.useState(false)
+  const originalFile = React.useRef<File | null>(null)
 
   const uploadOptions: UploadOptions = {
     maxSize,
@@ -346,13 +350,30 @@ export const ImageUploadNode: React.FC<NodeViewProps> = (props) => {
 
   const { fileItem, uploadFiles, clearFileItem } = useFileUpload(uploadOptions)
 
+  const openCropper = (file: File) => {
+    originalFile.current = file
+    const url = URL.createObjectURL(file)
+    setCropSrc(url)
+    setCropOpen(true)
+  }
+
+  const handleCropConfirm = async (blob: Blob) => {
+    if (!originalFile.current) return
+    const file = new File([blob], originalFile.current.name, { type: blob.type })
+    await handleUpload([file])
+    setCropOpen(false)
+    if (cropSrc) URL.revokeObjectURL(cropSrc)
+    setCropSrc(null)
+    originalFile.current = null
+  }
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (!files || files.length === 0) {
       extension.options.onError?.(new Error("No file selected"))
       return
     }
-    handleUpload(Array.from(files))
+    openCropper(files[0])
   }
 
   const handleUpload = async (files: File[]) => {
@@ -390,7 +411,7 @@ export const ImageUploadNode: React.FC<NodeViewProps> = (props) => {
       onClick={handleClick}
     >
       {!fileItem && (
-        <ImageUploadDragArea onFile={handleUpload}>
+        <ImageUploadDragArea onFile={(files) => openCropper(files[0])}>
           <DropZoneContent maxSize={maxSize} />
         </ImageUploadDragArea>
       )}
@@ -412,6 +433,21 @@ export const ImageUploadNode: React.FC<NodeViewProps> = (props) => {
         onChange={handleChange}
         onClick={(e: React.MouseEvent<HTMLInputElement>) => e.stopPropagation()}
       />
+      {cropSrc && (
+        <ImageCropperDialog
+          src={cropSrc}
+          open={cropOpen}
+          onOpenChange={(o) => {
+            if (!o) {
+              setCropOpen(false)
+              if (cropSrc) URL.revokeObjectURL(cropSrc)
+              setCropSrc(null)
+              originalFile.current = null
+            }
+          }}
+          onConfirm={handleCropConfirm}
+        />
+      )}
     </NodeViewWrapper>
   )
 }
