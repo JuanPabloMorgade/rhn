@@ -312,3 +312,21 @@ export function sanitizeUrl(
   }
   return '#';
 }
+
+/**
+ * Removes the wrapping style tag and `.simple-editor-content` div used to
+ * store TipTap content for emails. Returns just the inner HTML that the editor
+ * expects.
+ */
+export function extractEditorHtml(html: string): string {
+  if (!html) return html;
+
+  let cleaned = html.replace(/<style[^>]*>[\s\S]*?<\/style>/i, '');
+  const match = cleaned.match(
+    /<div class="simple-editor-content">([\s\S]*)<\/div>/i
+  );
+  if (match) {
+    cleaned = match[1];
+  }
+  return cleaned.trim();
+}
