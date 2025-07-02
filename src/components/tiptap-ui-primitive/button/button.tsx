@@ -73,6 +73,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       showTooltip = true,
       shortcutKeys,
       "aria-label": ariaLabel,
+      type = "button",
       ...props
     },
     ref
@@ -95,6 +96,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           className={`tiptap-button ${className}`.trim()}
           ref={ref}
           aria-label={ariaLabel}
+          type={type}
           {...props}
         >
           {children}
@@ -108,6 +110,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           className={`tiptap-button ${className}`.trim()}
           ref={ref}
           aria-label={ariaLabel}
+          type={type}
           {...props}
         >
           {children}
