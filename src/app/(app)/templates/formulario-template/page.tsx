@@ -42,6 +42,7 @@ import type { Editor } from '@tiptap/react';
 import GrapesNewsletterBuilder from '@/components/custom/grapes-newsletter-builder';
 import { SimpleEditor } from '@/components/tiptap-templates/simple/simple-editor';
 import { SIMPLE_EDITOR_EMAIL_CSS } from '@/styles/simple-editor-email';
+import { extractEditorHtml } from '@/lib/tiptap-utils';
 
 export default function FormularioTemplateSinImagen({
   templateSeleccionado,
@@ -410,12 +411,14 @@ export default function FormularioTemplateSinImagen({
                   <div className="w-full h-[600px] mt-2">
                     <SimpleEditor
                       templateId={templateSeleccionado?.id ?? ''}
-                      initialContent={templateSeleccionado?.mensaje}
+                      initialContent={extractEditorHtml(
+                        templateSeleccionado?.mensaje || ''
+                      )}
                       onInit={handleEditarInit}
                       onUpdate={(html) =>
                         setValue(
                           'mensaje',
-                          `<style>${SIMPLE_EDITOR_EMAIL_CSS}</style>${html}`
+                          `<style>${SIMPLE_EDITOR_EMAIL_CSS}</style><div class="simple-editor-content">${html}</div>`
                         )
                       }
                     />
