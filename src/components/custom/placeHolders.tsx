@@ -45,6 +45,7 @@ export default function PlaceholderDropdown({
         arrow={true}
       >
         <Button
+          type="button"
           onClick={onToggle}
           aria-label={label}
           data-style="ghost"
@@ -66,6 +67,7 @@ export default function PlaceholderDropdown({
         >
           {items.map((ph) => (
             <button
+              type="button"
               key={ph.value}
               className="w-full text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
               onClick={() => {

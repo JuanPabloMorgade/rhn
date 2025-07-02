@@ -48,6 +48,7 @@ export default function TextColorDropdown({
         arrow
       >
         <Button
+          type="button"
           onClick={onToggle}
           aria-label="Color de texto"
           data-style="ghost"
@@ -67,6 +68,7 @@ export default function TextColorDropdown({
         >
           {COLORS.map((col) => (
             <button
+              type="button"
               key={col.label}
               className="flex items-center gap-2 w-full px-3 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700"
               onClick={() => {

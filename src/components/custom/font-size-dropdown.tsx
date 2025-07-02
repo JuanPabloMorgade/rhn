@@ -35,6 +35,7 @@ export default function FontSizeDropdown({
         arrow
       >
         <Button
+          type="button"
           onClick={onToggle}
           aria-label="Tamaño de texto"
           data-style="ghost"
@@ -54,6 +55,7 @@ export default function FontSizeDropdown({
         >
           {SIZES.map((size) => (
             <button
+              type="button"
               key={size.value}
               className="w-full text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
               onClick={() => {

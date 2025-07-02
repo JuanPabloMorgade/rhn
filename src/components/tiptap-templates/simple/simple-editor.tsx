@@ -199,7 +199,7 @@ const MobileToolbarContent = ({
 }) => (
   <>
     <ToolbarGroup>
-      <Button data-style="ghost" onClick={onBack}>
+      <Button type="button" data-style="ghost" onClick={onBack}>
         <ArrowLeftIcon className="tiptap-button-icon" />
         {type === 'highlighter' ? (
           <HighlighterIcon className="tiptap-button-icon" />

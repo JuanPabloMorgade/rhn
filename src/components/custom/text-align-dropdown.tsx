@@ -55,6 +55,7 @@ export default function TextAlignDropdown() {
       >
         <DropdownMenuTrigger asChild>
           <Button
+            type="button"
             data-style="ghost"
             aria-label="Alineación"
             role="button"
@@ -70,6 +71,7 @@ export default function TextAlignDropdown() {
           {OPTIONS.map(({ label, value, Icon }) => (
             <DropdownMenuItem key={value} asChild>
               <Button
+                type="button"
                 onClick={() => {
                   editor.chain().focus().setTextAlign(value).run();
                   setOpen(false);

@@ -45,6 +45,7 @@ export default function HighlightDropdown({
         arrow={true}
       >
         <Button
+          type="button"
           onClick={onToggle}
           aria-label="Color de resaltado"
           data-style="ghost"
@@ -65,6 +66,7 @@ export default function HighlightDropdown({
         >
           {COLORS.map((col) => (
             <button
+              type="button"
               key={col.value}
               className="flex items-center gap-2 w-full px-3 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700"
               onClick={() => {
