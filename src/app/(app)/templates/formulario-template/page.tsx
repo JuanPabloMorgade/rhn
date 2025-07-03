@@ -37,7 +37,7 @@ import { useTemplate } from '@/contexts/templateContext';
 import { useAuth } from '@/contexts/authContext';
 import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'react-toastify';
-import { placeholdersCanvas } from '@/helpers/helpers';
+import { formatEmailHtmlClient, placeholdersCanvas } from '@/helpers/helpers';
 import type { Editor } from '@tiptap/react';
 import { SimpleEditor } from '@/components/tiptap-templates/simple/simple-editor';
 import { SIMPLE_EDITOR_EMAIL_CSS } from '@/styles/simple-editor-email';
@@ -147,12 +147,13 @@ export default function FormularioTemplateSinImagen({
   };
 
   const onSubmit = async (data: TemplateData) => {
+    const htmlParaMail = await formatEmailHtmlClient(data.mensaje);
     try {
       const payload = {
         nombre: data.nombre,
         tipo: data.tipo,
         asunto: data.asunto,
-        mensaje: data.mensaje,
+        mensaje: htmlParaMail,
         estado: data.estado,
         imagenUrl: '',
         imagenPath: '',

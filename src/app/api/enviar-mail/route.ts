@@ -1,12 +1,11 @@
 import { google } from 'googleapis';
 import { NextRequest, NextResponse } from 'next/server';
-import { formatEmailHtmlServer } from '@/helpers/formatEmailHtmlServer';
 
 export async function POST(req: NextRequest) {
 	try {
 		const text = await req.text();
 		if (!text)
-			return NextResponse.json({ error: 'Body vacÃ­o' }, { status: 400 });
+			return NextResponse.json({ error: 'Body vacio' }, { status: 400 });
 		let body;
 		try {
 			body = JSON.parse(text);
@@ -42,9 +41,6 @@ export async function POST(req: NextRequest) {
 		await jwtClient.authorize();
 
 		const gmail = google.gmail({ version: 'v1', auth: jwtClient });
-
-                const formatted = await formatEmailHtmlServer(message);
-
                 const rawMessage = [
                         `To: ${to}`,
                         `From: ${senderEmail}`,
@@ -52,7 +48,7 @@ export async function POST(req: NextRequest) {
                         `MIME-Version: 1.0`,
                         `Content-Type: text/html; charset=UTF-8`,
                         ``,
-                        formatted,
+                        `message`,
                 ].join('\n');
 
 		const encodedMessage = Buffer.from(rawMessage)
