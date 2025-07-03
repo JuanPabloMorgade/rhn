@@ -1,5 +1,6 @@
 import { google } from 'googleapis';
 import { NextRequest, NextResponse } from 'next/server';
+import { formatEmailHtmlServer } from '@/helpers/formatEmailHtmlServer';
 
 export async function POST(req: NextRequest) {
 	try {
@@ -13,7 +14,7 @@ export async function POST(req: NextRequest) {
 			return NextResponse.json({ error: 'JSON malformado' }, { status: 400 });
 		}
 
-		const { to, subject, message, senderEmail } = body;
+                const { to, subject, message, senderEmail } = body;
 
 		if (!senderEmail || !to || !subject || !message) {
 			return NextResponse.json(
@@ -42,15 +43,17 @@ export async function POST(req: NextRequest) {
 
 		const gmail = google.gmail({ version: 'v1', auth: jwtClient });
 
-		const rawMessage = [
-			`To: ${to}`,
-			`From: ${senderEmail}`,
-			`Subject: ${subject}`,
-			`MIME-Version: 1.0`,
-			`Content-Type: text/html; charset=UTF-8`,
-			``,
-			`${message}`,
-		].join('\n');
+                const formatted = await formatEmailHtmlServer(message);
+
+                const rawMessage = [
+                        `To: ${to}`,
+                        `From: ${senderEmail}`,
+                        `Subject: ${subject}`,
+                        `MIME-Version: 1.0`,
+                        `Content-Type: text/html; charset=UTF-8`,
+                        ``,
+                        formatted,
+                ].join('\n');
 
 		const encodedMessage = Buffer.from(rawMessage)
 			.toString('base64')

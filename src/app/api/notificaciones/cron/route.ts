@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { adminDb } from '@/lib/firebase-admin';
 import { google } from 'googleapis';
+import { formatEmailHtmlServer } from '@/helpers/formatEmailHtmlServer';
 import {
 	getHoyDM,
 	reemplazarPlaceholders,
@@ -30,16 +31,17 @@ const sendEmail = async (
 	const gmail = google.gmail({ version: 'v1', auth: jwtClient });
 	const recipients = Array.isArray(to) ? to : [to];
 
-	for (const email of recipients) {
-		const rawMessage = [
-			`To: ${email}`,
-			`From: ${senderEmail}`,
-			`Subject: ${asunto}`,
-			`MIME-Version: 1.0`,
-			`Content-Type: text/html; charset=UTF-8`,
-			``,
-			htmlMessage,
-		].join('\n');
+        for (const email of recipients) {
+                const formatted = await formatEmailHtmlServer(htmlMessage);
+                const rawMessage = [
+                        `To: ${email}`,
+                        `From: ${senderEmail}`,
+                        `Subject: ${asunto}`,
+                        `MIME-Version: 1.0`,
+                        `Content-Type: text/html; charset=UTF-8`,
+                        ``,
+                        formatted,
+                ].join('\n');
 
 		const encodedMessage = Buffer.from(rawMessage)
 			.toString('base64')
