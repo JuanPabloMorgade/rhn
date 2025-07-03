@@ -72,6 +72,7 @@ export default function PlaceholderDropdown({
                 editor.chain().focus().insertContent(ph.value).run();
                 onToggle();
               }}
+              type="button"
             >
               {ph.label}
             </button>

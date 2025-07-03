@@ -190,6 +190,7 @@ export const DropdownMenuTrigger = React.forwardRef<
       aria-expanded={context.open}
       aria-haspopup="menu"
       data-state={context.open ? "open" : "closed"}
+      type="button"
       {...context.getReferenceProps(props)}
     >
       {children}

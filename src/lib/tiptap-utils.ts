@@ -188,10 +188,10 @@ export const handleImageUpload = (
 };
 
 /**
- * Converts a File to base64 string
- * @param file The file to convert
- * @param abortSignal Optional AbortSignal for cancelling the conversion
- * @returns Promise resolving to the base64 representation of the file
+ * 
+ * @param
+ * @param
+ * @returns 
  */
 export const convertFileToBase64 = (
   file: File,
@@ -308,25 +308,17 @@ export function sanitizeUrl(
       return url.href;
     }
   } catch {
-    // If URL creation fails, it's considered invalid
   }
   return '#';
 }
 
-/**
- * Removes the wrapping style tag and `.simple-editor-content` div used to
- * store TipTap content for emails. Returns just the inner HTML that the editor
- * expects.
- */
 export function extractEditorHtml(html: string): string {
   if (!html) return html;
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  doc.querySelectorAll('style').forEach((el) => el.remove());
+  const wrapper = doc.querySelector('.simple-editor-content');
+  const content = wrapper ? wrapper.innerHTML : doc.body.innerHTML;
 
-  let cleaned = html.replace(/<style[^>]*>[\s\S]*?<\/style>/i, '');
-  const match = cleaned.match(
-    /<div class="simple-editor-content">([\s\S]*)<\/div>/i
-  );
-  if (match) {
-    cleaned = match[1];
-  }
-  return cleaned.trim();
+  return content.trim();
 }

@@ -39,7 +39,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'react-toastify';
 import { placeholdersCanvas } from '@/helpers/helpers';
 import type { Editor } from '@tiptap/react';
-import GrapesNewsletterBuilder from '@/components/custom/grapes-newsletter-builder';
 import { SimpleEditor } from '@/components/tiptap-templates/simple/simple-editor';
 import { SIMPLE_EDITOR_EMAIL_CSS } from '@/styles/simple-editor-email';
 import { extractEditorHtml } from '@/lib/tiptap-utils';
@@ -81,19 +80,14 @@ export default function FormularioTemplateSinImagen({
     defaultValues: templateSeleccionado || formularioTemplate,
   });
 
-  // Restablece campos del formulario al seleccionar o cambiar el template
   useEffect(() => {
     reset(templateSeleccionado || formularioTemplate);
   }, [templateSeleccionado, reset]);
 
-  // Inicializar el editor y establecer el contenido inicial
   const handleEditarInit = useCallback((ed: Editor) => {
     setEditor(ed);
-    // Si quisieras precargar contenido desde GrapesJS usabas setComponents,
-    // pero con TipTap basta con initialContent en el propio SimpleEditor.
   }, []);
 
-  // Funcion para destruir la instancia de la edición existente
   const limpiarEdicion = useCallback(() => {
     if (editor) {
       editor.destroy();
@@ -101,7 +95,6 @@ export default function FormularioTemplateSinImagen({
     }
   }, [editor]);
 
-  // Controladores para crear, editar y cancelar
   const handleCreateNew = () => {
     limpiarEdicion();
     setTemplateSeleccionado({ ...formularioTemplate, id: '' });
@@ -153,7 +146,6 @@ export default function FormularioTemplateSinImagen({
     }
   };
 
-  // Funcion de submit: crear o actualizar
   const onSubmit = async (data: TemplateData) => {
     try {
       const payload = {
@@ -185,11 +177,9 @@ export default function FormularioTemplateSinImagen({
         toast.success('Template actualizado correctamente');
       }
 
-      // Actualizar la lista y actualizar el elemento seleccionado para su visualización inmediata
       await cargaTemplatePaginado(50, 1);
       setTemplateSeleccionado({ id: newId, ...payload });
 
-      // Limpieza y salida de edición/creación
       limpiarEdicion();
       setIsCreating(false);
       setIsEditing(false);
@@ -199,21 +189,6 @@ export default function FormularioTemplateSinImagen({
       toast.error('Error al guardar el template');
     }
   };
-
-  // Sincroniza las actualizaciones del editor con el estado del formulario
-  /*  useEffect(() => {
-    if (!isEditing || !editor) return;
-    const onUpdate = () => {
-      const html = editor.getHtml();
-      const css = editor.getCss();
-      const fullCode = `<style>${css}</style>${html}`;
-      setValue('mensaje', fullCode);
-    };
-    editor.on('update', onUpdate);
-    return () => {
-      editor.off('update', onUpdate);
-    };
-  }, [editor, setValue, isEditing]); */
 
   return (
     <div>
@@ -398,16 +373,7 @@ export default function FormularioTemplateSinImagen({
                 </div>
 
                 <div className="w-full overflow-x-auto">
-                  <Label>
-                    Se recomienda trabajar en pantallas grandes o pantalla
-                    completa
-                  </Label>
-                  {/* <div className="w-full max-w-full mt-2">
-                    <GrapesNewsletterBuilder
-                      onInit={handleEditarInit}
-                      initialContent={templateSeleccionado?.mensaje}
-                    />
-                  </div> */}
+                  <Label>Se recomienda trabajar en pantallas grandes</Label>
                   <div className="w-full h-[600px] mt-2">
                     <SimpleEditor
                       templateId={templateSeleccionado?.id ?? ''}

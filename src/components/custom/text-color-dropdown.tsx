@@ -77,6 +77,7 @@ export default function TextColorDropdown({
                 }
                 onToggle();
               }}
+              type="button"
             >
               <span
                 className="inline-block w-4 h-4 rounded border"

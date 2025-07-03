@@ -141,18 +141,6 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                   </SidebarMenuButton>
                 </Link>
               </SidebarMenuItem>
-
-              <SidebarMenuItem>
-                <Link href="/templates2" legacyBehavior passHref>
-                  <SidebarMenuButton
-                    tooltip="Templates2"
-                    isActive={pathname === '/templates2'}
-                  >
-                    <NotepadTextDashed />
-                    Templates2
-                  </SidebarMenuButton>
-                </Link>
-              </SidebarMenuItem>
               <SidebarMenuItem>
                 <Link href="/ajustes" legacyBehavior passHref>
                   <SidebarMenuButton

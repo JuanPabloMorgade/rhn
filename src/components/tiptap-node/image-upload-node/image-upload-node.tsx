@@ -301,6 +301,7 @@ const ImageUploadPreview: React.FC<ImageUploadPreviewProps> = ({
               e.stopPropagation()
               onRemove()
             }}
+            type="button"
           >
             <CloseIcon />
           </button>

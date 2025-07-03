@@ -191,6 +191,7 @@ const PopoverTrigger = React.forwardRef<HTMLElement, TriggerElementProps>(
       <button
         ref={ref}
         data-state={context.open ? "open" : "closed"}
+        type="button"
         {...context.getReferenceProps(props)}
       >
         {children}
