@@ -36,6 +36,9 @@ export async function formatEmailHtmlServer(htmlRaw: string): Promise<string> {
     if (width) img.style.width = width;
 
     if (align) {
+      // Guardamos el padre original antes de mover la imagen
+      const originalParent = img.parentNode;
+
       // 1) creo la tabla wrapper
       const table = document.createElement('table');
       table.setAttribute('width', '100%');
@@ -51,13 +54,14 @@ export async function formatEmailHtmlServer(htmlRaw: string): Promise<string> {
       // 2) image como inline-block dentro del td
       img.style.display = 'inline-block';
 
-      // 3) armo la estructura y sustituyo
+      // 3) armo la estructura
       tr.appendChild(td);
       td.appendChild(img);
       tbody.appendChild(tr);
       table.appendChild(tbody);
 
-      img.parentNode?.replaceChild(table, img);
+      // 4) sustituyo en el DOM usando el padre original
+      originalParent?.replaceChild(table, img);
     }
   });
 
